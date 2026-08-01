@@ -57,26 +57,24 @@ public class Array {
             for (int j = i; j < arr.length; j++) {
                 int end = j;
                 for (int k = start; k <= end; k++) {
-                    System.out.print(arr[k]);
+                    System.out.print(arr[k] + " ");
                 }
                 System.out.println();
             }
-            System.out.println();
-
         }
     }
 
     public static int maxSubArraySum(int arr[]) {
         int maxSum = Integer.MIN_VALUE;
         for (int i = 0; i < arr.length; i++) {
-            int start = 0;
+            int start = i;
             for (int j = i; j < arr.length; j++) {
                 int end = j;
                 int currSum = 0;
                 for (int k = start; k <= end; k++) {
                     currSum += arr[k];
                 }
-                maxSum = Math.max(currSum, maxSum);
+                maxSum = Math.max(maxSum, currSum);
             }
         }
         return maxSum;
@@ -84,20 +82,19 @@ public class Array {
 
     public static int prefixSum(int arr[]) {
         int ms = Integer.MIN_VALUE;
-        int cs = 0;
         int prefix[] = new int[arr.length];
-
         prefix[0] = arr[0];
-        for (int i = 1; i < arr.length; i++) {
+        for (int i = 1; i < prefix.length; i++) {
             prefix[i] = prefix[i - 1] + arr[i];
         }
 
         for (int i = 0; i < arr.length; i++) {
             int start = i;
-            for (int j = i; j < prefix.length; j++) {
+            int currSum = 0;
+            for (int j = i; j < arr.length; j++) {
                 int end = j;
-                cs = start == 0 ? prefix[end] : prefix[end] - prefix[start - 1];
-                ms = Math.max(ms, cs);
+                currSum = start == 0 ? prefix[end] : prefix[end] - prefix[start - 1];
+                ms = Math.max(ms, currSum);
             }
         }
         return ms;
@@ -167,8 +164,9 @@ public class Array {
 
     public static void main(String[] args) {
         int arr[] = { 2, 3, 4, 5, 6 };
-        reverseArray(arr);
-
+        // reverseArray(arr);
+        // printSubArray(arr);
+        System.out.println(prefixSum(arr));
     }
 
 }
