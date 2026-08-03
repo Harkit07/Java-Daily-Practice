@@ -29,14 +29,14 @@ public class StrQuestion {
         return (float) Math.sqrt(Y2 + X2);
     }
 
-    public static void largestString(String str[]) {
+    public static String largestString(String str[]) {
         String largest = str[0];
         for (int i = 1; i < str.length; i++) {
             if (largest.compareTo(str[i]) < 0) {
                 largest = str[i];
             }
         }
-        System.out.println(largest);
+        return largest;
     }
 
     public static String strUpperCase(String str) {
@@ -73,10 +73,10 @@ public class StrQuestion {
     public static void main(String[] args) {
         // String str = "racecar";
         // System.out.println(isPalindrome(str));
-        String Str = "WNEENESENNN";
-        System.out.println(shortestPath(Str));
-        // String fruits[] = { "apple", "mango", "banana" };
-        // largestString(fruits);
+        // String Str = "WNEENESENNN";
+        // System.out.println(shortestPath(Str));
+        String fruits[] = { "apple", "mango", "banana" };
+        System.out.println(largestString(fruits));
         // String str = "hi, i am shardha";
         // System.out.println(strUpperCase(str));
         // String str = "aaabbcccdd";
