@@ -15,18 +15,18 @@ public class StrQuestion {
         for (int i = 0; i < str.length(); i++) {
             char ch = str.charAt(i);
             if (ch == 'N') {
-                y++;
-            } else if (ch == 'E') {
                 x++;
-            } else if (ch == 'W') {
+            } else if (ch == 'S') {
                 x--;
+            } else if (ch == 'E') {
+                y++;
             } else {
                 y--;
             }
         }
         int X2 = x * x;
         int Y2 = y * y;
-        return (float) Math.sqrt(X2 + Y2);
+        return (float) Math.sqrt(Y2 + X2);
     }
 
     public static void largestString(String str[]) {
@@ -73,13 +73,13 @@ public class StrQuestion {
     public static void main(String[] args) {
         // String str = "racecar";
         // System.out.println(isPalindrome(str));
-        // String Str = "WNEENESENNN";
-        // System.out.println(shortestPath(Str));
+        String Str = "WNEENESENNN";
+        System.out.println(shortestPath(Str));
         // String fruits[] = { "apple", "mango", "banana" };
         // largestString(fruits);
         // String str = "hi, i am shardha";
         // System.out.println(strUpperCase(str));
-        String str = "aaabbcccdd";
-        System.out.println(stringCompression(str));
+        // String str = "aaabbcccdd";
+        // System.out.println(stringCompression(str));
     }
 }

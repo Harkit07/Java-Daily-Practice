@@ -166,7 +166,7 @@ public class Array {
         int arr[] = { 2, 3, 4, 5, 6 };
         // reverseArray(arr);
         // printSubArray(arr);
-        System.out.println(prefixSum(arr));
+        System.out.println(kadanAlgorithm(arr));
     }
 
 }

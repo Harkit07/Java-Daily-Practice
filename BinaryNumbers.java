@@ -25,7 +25,7 @@ public class BinaryNumbers {
         }
         System.out.println("Decimal Number of " + myNum + " = " + binNum);
     }
-
+    
     public static void main(String[] args) {
         // int binNum = 1000;
         // binToDec(binNum);
