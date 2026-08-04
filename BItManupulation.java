@@ -35,12 +35,36 @@ public class BItManupulation {
         return n & bitMask;
     }
 
+    public static int updateIthBit(int n, int i, int newBit) {
+        n = clearIthBit(n, i);
+        int bitMask = newBit << i;
+        return n | bitMask;
+    }
+
+    public static boolean isPowerOf2(int n) {
+        return n > 0 && (n & (n - 1)) == 0;
+    }
+
+    public static int countSetBit(int n) {
+        int count = 0;
+        while (n > 0) {
+            if ((n & 1) != 0) {
+                count++;
+            }
+            n = n >> 1;
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
         // System.out.println((~15));
         // oddOrEven(8);
         // oddOrEven(9);
         // System.out.println(getIthBit(10, 3));
         // System.out.println(setIthBit(10, 2));
-        System.out.println(clearIthBit(6, 1));
+        // System.out.println(clearIthBit(6, 1));
+        // System.out.println(updateIthBit(7, 2, 0));
+        // System.out.println(isPowerOf2(8));
+        System.out.println(countSetBit(7));
     }
 }
