@@ -46,6 +46,13 @@ public class BItManupulation {
         return n & bitMask;
     }
 
+    public static int clearInRange(int n, int j, int i) {
+        int a = (~0) << (j + 1);
+        int b = (1 << i) - 1;
+        int bitMask = a | b;
+        return n & bitMask;
+    }
+
     public static boolean isPowerOf2(int n) {
         return n > 0 && (n & (n - 1)) == 0;
     }
@@ -61,6 +68,18 @@ public class BItManupulation {
         return count;
     }
 
+    public static int fastExponentation(int n, int a) {
+        int ans = 1;
+        while (n > 0) {
+            if ((n & 1) != 0) {
+                ans *= a;
+            }
+            a *= a;
+            n = n >> 1;
+        }
+        return ans;
+    }
+
     public static void main(String[] args) {
         // System.out.println((~15));
         // oddOrEven(8);
@@ -71,6 +90,8 @@ public class BItManupulation {
         // System.out.println(updateIthBit(7, 2, 0));
         // System.out.println(isPowerOf2(8));
         // System.out.println(countSetBit(7));
-        System.out.println(clearLastIthBit(8, 1));
+        // System.out.println(clearLastIthBit(8, 1));
+        // System.out.println(clearInRange(255, 5, 2));
+        System.out.println(fastExponentation(5, 3));
     }
 }
