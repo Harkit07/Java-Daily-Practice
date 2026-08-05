@@ -41,6 +41,11 @@ public class BItManupulation {
         return n | bitMask;
     }
 
+    public static int clearLastIthBit(int n, int i) {
+        int bitMask = (~0) << i;
+        return n & bitMask;
+    }
+
     public static boolean isPowerOf2(int n) {
         return n > 0 && (n & (n - 1)) == 0;
     }
@@ -65,6 +70,7 @@ public class BItManupulation {
         // System.out.println(clearIthBit(6, 1));
         // System.out.println(updateIthBit(7, 2, 0));
         // System.out.println(isPowerOf2(8));
-        System.out.println(countSetBit(7));
+        // System.out.println(countSetBit(7));
+        System.out.println(clearLastIthBit(8, 1));
     }
 }
