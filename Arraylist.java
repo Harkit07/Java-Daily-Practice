@@ -54,6 +54,21 @@ public class Arraylist {
         return maxWater;
     }
 
+    public static boolean findPairSum(ArrayList<Integer> arr, int target) {
+        int lp = 0, rp = arr.size() - 1;
+
+        while (lp != rp) {
+            if (arr.get(lp) + arr.get(rp) == target) {
+                return true;
+            } else if (arr.get(lp) + arr.get(rp) < target) {
+                lp++;
+            } else {
+                rp--;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         // ArrayList<Integer> list = new ArrayList<>();
         // list.add(1);
@@ -90,13 +105,20 @@ public class Arraylist {
         // mainList.add(list2);
         // mainList.add(list3);
         // System.out.println(mainList);
-        int arr[] = { 1, 8, 6, 2, 5, 4, 8, 3, 7 };
+        // int arr[] = { 1, 8, 6, 2, 5, 4, 8, 3, 7 };
 
-        ArrayList<Integer> height = new ArrayList<>();
-        for (int h : arr) {
-            height.add(h);
-        }
+        // ArrayList<Integer> height = new ArrayList<>();
+        // for (int h : arr) {
+        // height.add(h);
+        // }
         // System.out.println(containWaterBruteForce(height));
-        System.out.println(containWater(height));
+        // System.out.println(containWater(height));
+        int arr[] = { 1, 2, 3, 4, 5, 6 };
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int item : arr) {
+            list.add(item);
+        }
+        System.out.println(findPairSum(list, 3));
+
     }
 }
