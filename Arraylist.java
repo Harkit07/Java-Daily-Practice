@@ -54,6 +54,7 @@ public class Arraylist {
         return maxWater;
     }
 
+    // find in sorted array
     public static boolean findPairSum(ArrayList<Integer> arr, int target) {
         int lp = 0, rp = arr.size() - 1;
 
@@ -64,6 +65,37 @@ public class Arraylist {
                 lp++;
             } else {
                 rp--;
+            }
+        }
+        return false;
+    }
+
+    // find in sorted and rotated array
+    public static boolean pairSum(ArrayList<Integer> list, int target) {
+        int n = list.size();
+        int bp = -1;
+        for (int i = 0; i < n - 1; i++) {
+            if (list.get(i) > list.get(i + 1)) {
+                bp = i;
+                break;
+            }
+        }
+        int lp = bp + 1, rp = bp;
+        // if bp=0
+        // if (bp == -1) {
+        // lp = 0;
+        // rp = n - 1;
+        // } else {
+        // lp = bp + 1;
+        // rp = bp;
+        // }
+        while (lp != rp) {
+            if (list.get(lp) + list.get(rp) == target) {
+                return true;
+            } else if (list.get(lp) + list.get(rp) < target) {
+                lp = (lp + 1) % n;
+            } else {
+                rp = (n + rp - 1) % n;
             }
         }
         return false;
@@ -113,12 +145,13 @@ public class Arraylist {
         // }
         // System.out.println(containWaterBruteForce(height));
         // System.out.println(containWater(height));
-        int arr[] = { 1, 2, 3, 4, 5, 6 };
+        int arr[] = { 4, 5, 6, 1, 2, 3 };
         ArrayList<Integer> list = new ArrayList<>();
         for (int item : arr) {
             list.add(item);
         }
-        System.out.println(findPairSum(list, 3));
+        // System.out.println(findPairSum(list, 3));
+        System.out.println(pairSum(list, 8));
 
     }
 }
