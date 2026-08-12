@@ -108,6 +108,14 @@ public class LLQuestions {
         return true;
     }
 
+    // Detect a Loop/Cycle in a LL
+
+    // Remove a Loop/Cycle in a LL
+
+    // Merge Sort in a LL
+
+    // Zig-Zag in a LL
+
     public static void main(String[] args) {
         // LinkedList<Integer> LL = new LinkedList<>();
         // LL.addFirst(3);
