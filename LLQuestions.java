@@ -109,10 +109,104 @@ public class LLQuestions {
     }
 
     // Detect a Loop/Cycle in a LL
+    public static boolean isCycle(Node head) {
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     // Remove a Loop/Cycle in a LL
+    public static void removeCycle(Node head) {
+        if (head == null || head.next == null) {
+            System.out.println("No Cycle Exists");
+            return;
+        }
+
+        Node slow = head;
+        Node fast = head;
+        boolean isCycle = false;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                isCycle = true;
+                break;
+            }
+        }
+
+        if (!isCycle) {
+            System.out.println("No Cycle Exists");
+            return;
+        }
+
+        // Special case: cycle starts at head
+        if (slow == head) {
+            while (fast.next != slow) {
+                fast = fast.next;
+            }
+            fast.next = null;
+            return;
+        }
+        slow = head;
+        Node prev = null;
+        while (slow != fast) {
+            prev = fast;
+            slow = slow.next;
+            fast = fast.next;
+        }
+        prev.next = null;
+    }
 
     // Merge Sort in a LL
+    public static Node getMid(Node head) {
+        if (head == null)
+            return null;
+        Node slow = head;
+        Node fast = head.next;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+    public static Node merge(Node head1, Node head2) {
+        Node mergeLL = new Node(-1);
+        Node temp = mergeLL;
+        while (head1 != null && head2 != null) {
+            if (head1.data < head2.data) {
+                temp.next = head1;
+                head1 = head1.next;
+            } else {
+                temp.next = head2;
+                head2 = head2.next;
+            }
+            temp = temp.next;
+        }
+        temp.next = (head1 != null) ? head1 : head2; // attach whatever remains
+        return mergeLL.next;
+    }
+
+    public static Node mergeSort(Node head) {
+        if (head == null || head.next == null) {
+            return head; // base case
+        }
+        Node midNode = getMid(head);
+        Node left = head;
+        Node right = midNode.next;
+        midNode.next = null;
+        Node newLeft = mergeSort(left);
+        Node newRight = mergeSort(right);
+        return merge(newLeft, newRight);
+    }
 
     // Zig-Zag in a LL
 
@@ -122,14 +216,22 @@ public class LLQuestions {
         // LL.addFirst(2);
         // LL.addFirst(1);
 
-        Node head = new Node(1);
-        head.next = new Node(2);
-        head.next.next = new Node(3);
+        // Node head = new Node(1);
+        // head.next = new Node(2);
+        // head.next.next = new Node(3);
 
         // printLL(head);
         // head = reverse(head);
-        printLL(head);
-        head = deleteNthFromEnd(head, 2);
-        printLL(head);
+        // printLL(head);
+        // head = deleteNthFromEnd(head, 2);
+        // printLL(head);
+
+        Node head2 = new Node(1);
+        head2.next = new Node(2);
+        head2.next.next = new Node(3);
+        head2.next.next.next = head2.next; // node 3 -> node 2 (cycle)
+        // System.out.println("Test 2 (cycle to middle): " + isCycle(head2));
+        // removeCycle(head2);
+        // printLL(head2);
     }
 }
