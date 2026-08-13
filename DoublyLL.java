@@ -70,6 +70,26 @@ public class DoublyLL {
         }
     }
 
+    public static void reverseDll() {
+        if (head == null) {
+            System.out.println("LL is Empty");
+            return;
+        } else {
+            Node curr = head;
+            Node prev = null;
+            Node next;
+            while (curr != null) {
+                next = curr.next;
+                curr.next = prev;
+                curr.prev = next;
+                prev = curr;
+                curr = next;
+            }
+            tail = head;
+            head = prev;
+        }
+    }
+
     public static void main(String[] args) {
         DoublyLL DLL = new DoublyLL();
         DLL.addFirst(2);
