@@ -1,5 +1,5 @@
 public class QueueArr {
-    static class Queue {
+    // static class Queue {
         static int arr[];
         static int size;
         static int rear;
