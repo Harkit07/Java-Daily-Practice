@@ -58,6 +58,12 @@ public class QueueQA {
     // }
     // }
 
+    // First non-repeating latter in a stream of character
+
+    // Interleaves 2 halves of a Queue(Even length)
+
+    // Queue Reversal
+
     public static void main(String[] args) {
         // Stack s = new Stack();
         // s.add(3);
