@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 
 public class GreedyAlgorithms {
@@ -105,6 +106,42 @@ public class GreedyAlgorithms {
     }
 
     // Job Sequencing Problem
+    static class job {
+        int id;
+        int deadline;
+        int profit;
+
+        public job(int i, int d, int j) {
+            id = i;
+            deadline = d;
+            profit = j;
+        }
+    }
+
+    public static void jobSequencing(int jobsInfo[][]) {
+        ArrayList<job> jobs = new ArrayList<>();
+        for (int i = 0; i < jobsInfo.length; i++) {
+            jobs.add(new job(i, jobsInfo[i][0], jobsInfo[i][1]));
+        }
+        Collections.sort(jobs, (obj1, obj2) -> obj2.profit - obj1.profit);
+        ArrayList<Integer> seq = new ArrayList<>();
+        int time = 0;
+        int maxProfit = 0;
+        ;
+        for (int i = 0; i < jobs.size(); i++) {
+            job curr = jobs.get(i);
+            if (curr.deadline > time) {
+                seq.add(curr.id);
+                maxProfit += curr.profit;
+                time = curr.deadline;
+            }
+        }
+        System.out.println("Maximum Profit is = " + maxProfit);
+        for (int i = 0; i < seq.size(); i++) {
+            System.out.print(seq.get(i) + " ");
+        }
+        System.out.println();
+    }
 
     // Chocola Problem
 
@@ -130,11 +167,12 @@ public class GreedyAlgorithms {
         // System.out.println(maxChainLen(pairs));
 
         // Indian Coin
-        int val = 590;
-        indianCoin(val);
+        // int val = 590;
+        // indianCoin(val);
 
         // Job Sequencing Problem
-        // int jobsInfo[][] = { { 4, 20 }, { 1, 10 }, { 1, 40 }, { 1, 30 } };
+        int jobsInfo[][] = { { 4, 20 }, { 1, 10 }, { 1, 40 }, { 1, 30 } };
+        jobSequencing(jobsInfo);
 
         // Chocola Problem
         // int n = 4, m = 6;
