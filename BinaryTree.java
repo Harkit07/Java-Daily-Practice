@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -135,27 +136,105 @@ public class BinaryTree {
     // }
 
     // Diameter of a Tree - Approac 2
-    static class Info {
-        int ht;
-        int daim;
+    // static class Info {
+    // int ht;
+    // int daim;
 
-        public Info(int ht, int daim) {
-            this.ht = ht;
-            this.daim = daim;
+    // public Info(int ht, int daim) {
+    // this.ht = ht;
+    // this.daim = daim;
+    // }
+
+    // }
+
+    // public static Info daimeter(Node root) {
+    // if (root == null) {
+    // return new Info(0, 0);
+    // }
+    // Info leftInfo = daimeter(root.left);
+    // Info rightInfo = daimeter(root.right);
+
+    // int daim = Math.max(Math.max(leftInfo.daim, rightInfo.daim), leftInfo.ht +
+    // rightInfo.ht + 1);
+    // int ht = Math.max(leftInfo.ht, rightInfo.ht) + 1;
+    // return new Info(ht, daim);
+    // }
+
+    // Subtree of Another Tree
+    public static boolean isIdentical(Node root, Node subroot) {
+        if (root == null && subroot == null) {
+            return true;
+        } else if (root == null || subroot == null || root.data != subroot.data) {
+            return false;
         }
-
+        if (!isIdentical(root.left, subroot.left)) {
+            return false;
+        }
+        if (!isIdentical(root.right, subroot.right)) {
+            return false;
+        }
+        return true;
     }
 
-    public static Info daimeter(Node root) {
+    public static boolean isSubtree(Node root, Node subroot) {
         if (root == null) {
-            return new Info(0, 0);
+            return false;
         }
-        Info leftInfo = daimeter(root.left);
-        Info rightInfo = daimeter(root.right);
+        if (root.data == subroot.data) {
+            if (isIdentical(root, subroot)) {
+                return true;
+            }
+        }
+        return isSubtree(root.left, subroot) || isSubtree(root.right, subroot);
+    }
 
-        int daim = Math.max(Math.max(leftInfo.daim, rightInfo.daim), leftInfo.ht + rightInfo.ht + 1);
-        int ht = Math.max(leftInfo.ht, rightInfo.ht) + 1;
-        return new Info(ht, daim);
+    // Top View of a Tree
+    static class Info {
+        int ht;
+        Node node;
+
+        public Info(int ht, Node node) {
+            this.ht = ht;
+            this.node = node;
+        }
+    }
+
+    public static void topView(Node root) {
+        if (root == null) {
+            System.out.println();
+            return;
+        }
+        Queue<Info> q = new LinkedList<>();
+        q.add(new Info(0, root));
+        q.add(null);
+        int min = 0, max = 0;
+        HashMap<Integer, Node> hm = new HashMap<>();
+        while (!q.isEmpty()) {
+            Info curr = q.remove();
+            if (curr == null) {
+                if (q.isEmpty()) {
+                    break;
+                } else {
+                    q.add(null);
+                }
+            } else {
+                if (!hm.containsKey(curr.ht)) {
+                    hm.put(curr.ht, curr.node);
+                }
+                if (curr.node.left != null) {
+                    q.add(new Info(curr.ht - 1, curr.node.left));
+                    min = Math.min(min, curr.ht - 1);
+                }
+                if (curr.node.right != null) {
+                    q.add(new Info(curr.ht + 1, curr.node.right));
+                    max = Math.max(max, curr.ht + 1);
+                }
+            }
+        }
+        for (int i = min; i <= max; i++) {
+            System.out.print(hm.get(i).data + " ");
+        }
+        System.out.println();
     }
 
     public static void main(String[] args) {
@@ -173,6 +252,11 @@ public class BinaryTree {
         // System.out.println(count(root));
         // System.out.println(sum(root));
         // System.out.println(daimeter(root));
-        System.out.println(daimeter(root).daim);
+        // System.out.println(daimeter(root).daim);
+        // BinaryTrees.idx = -1;
+        // int subNodes[] = { 2, 4, -1, -1, 5, -1, -1 };
+        // Node subroot = BinaryTrees.buildTree(subNodes);
+        // System.out.println(isSubtree(root, subroot));
+        topView(root);
     }
 }
