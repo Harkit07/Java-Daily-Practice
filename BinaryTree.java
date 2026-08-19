@@ -120,6 +120,44 @@ public class BinaryTree {
         return ls + rs + root.data;
     }
 
+    // Diameter of a Tree - Approac 1
+    // public static int daimeter(Node root) {
+    // if (root == null) {
+    // return 0;
+    // }
+    // int leftDaim = daimeter(root.left);
+    // int leftHeight = height(root.left);
+    // int rightDaim = daimeter(root.right);
+    // int rightHeight = height(root.right);
+
+    // int selfDaim = leftHeight + rightHeight + 1;
+    // return Math.max(selfDaim, Math.max(rightDaim, leftDaim));
+    // }
+
+    // Diameter of a Tree - Approac 2
+    static class Info {
+        int ht;
+        int daim;
+
+        public Info(int ht, int daim) {
+            this.ht = ht;
+            this.daim = daim;
+        }
+
+    }
+
+    public static Info daimeter(Node root) {
+        if (root == null) {
+            return new Info(0, 0);
+        }
+        Info leftInfo = daimeter(root.left);
+        Info rightInfo = daimeter(root.right);
+
+        int daim = Math.max(Math.max(leftInfo.daim, rightInfo.daim), leftInfo.ht + rightInfo.ht + 1);
+        int ht = Math.max(leftInfo.ht, rightInfo.ht) + 1;
+        return new Info(ht, daim);
+    }
+
     public static void main(String[] args) {
         int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
         Node root = BinaryTrees.buildTree(nodes);
@@ -130,9 +168,11 @@ public class BinaryTree {
         // System.out.println();
         // postOrder(root);
         // System.out.println();
-        levelOrder(root);
-        System.out.println(height(root));
-        System.out.println(count(root));
-        System.out.println(sum(root));
+        // levelOrder(root);
+        // System.out.println(height(root));
+        // System.out.println(count(root));
+        // System.out.println(sum(root));
+        // System.out.println(daimeter(root));
+        System.out.println(daimeter(root).daim);
     }
 }
