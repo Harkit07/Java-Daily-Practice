@@ -331,8 +331,47 @@ public class BinaryTree {
     }
 
     // kth Ancestor of Nodes
+    public static int kthAncestor(Node root, int n, int k) {
+        if (root == null) {
+            return -1;
+        }
+        if (root.data == n) {
+            return 0;
+        }
+        int left = kthAncestor(root.left, n, k);
+        int right = kthAncestor(root.right, n, k);
+        if (left == -1 && right == -1) {
+            return -1;
+        }
+        int max = Math.max(left, right);
+        if (max + 1 == k) {
+            System.out.println(root.data);
+        }
+        return max + 1;
+    }
 
     // Transform to Sum Tree
+    public static int transformTree(Node root) {
+        if (root == null) {
+            return 0;
+        }
+        int leftChild = transformTree(root.left);
+        int rightChild = transformTree(root.right);
+        int data = root.data;
+        int newLeft = root.left == null ? 0 : root.left.data;
+        int newRight = root.right == null ? 0 : root.right.data;
+        root.data = leftChild + newLeft + rightChild + newRight;
+        return data;
+    }
+
+    // Transform to Sum Tree short
+    public static int toSumTree(Node node) {
+        if (node == null)
+            return 0;
+        int old = node.data;
+        node.data = toSumTree(node.left) + toSumTree(node.right);
+        return old + node.data; // return ORIGINAL + NEW combined
+    }
 
     public static void main(String[] args) {
         int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
@@ -358,6 +397,10 @@ public class BinaryTree {
         // kthLevel(root, 0, 2);
         // System.out.println(lca1(root, 4, 5).data);
         // System.out.println(lca2(root, 4, 5).data);
-        System.out.println(minDiff(root, 4, 6));
+        // System.out.println(minDiff(root, 4, 6));
+        // System.out.println(kthAncestor(root, 4, 2));
+        // transformTree(root);
+        toSumTree(root);
+        preOrder(root);
     }
 }
