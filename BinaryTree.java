@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -250,17 +251,88 @@ public class BinaryTree {
         kthLevel(root.right, level + 1, k);
     }
 
-    //Lowest Common Ancestor - Approach 1
+    // Lowest Common Ancestor - Approach 1
+    public static boolean getPath(Node root, ArrayList<Node> path, int n) {
+        if (root == null) {
+            return false;
+        }
+        path.add(root);
+        if (root.data == n) {
+            return true;
+        }
+        boolean foundLeft = getPath(root.left, path, n);
+        boolean foundRight = getPath(root.right, path, n);
+        if (foundLeft || foundRight) {
+            return true;
+        }
+        path.remove(path.size() - 1);
+        return false;
+    }
 
-    //Lowest Common Ancestor - Approach 2
+    public static Node lca1(Node root, int n1, int n2) {
+        ArrayList<Node> path1 = new ArrayList<>();
+        ArrayList<Node> path2 = new ArrayList<>();
 
-    //Min Distance Between Nodes
+        getPath(root, path1, n1);
+        getPath(root, path2, n2);
 
-    //kth Ancestor of Nodes
+        int i = 0;
+        for (; i < path1.size() && i < path2.size(); i++) {
+            if (path1.get(i) != path2.get(i)) {
+                break;
+            }
+        }
+        Node lca = path1.get(i - 1);
+        return lca;
+    }
 
-    //Transform to Sum Tree
+    // Lowest Common Ancestor - Approach 2
+    public static Node lca2(Node root, int n1, int n2) {
+        if (root == null || root.data == n1 || root.data == n2) {
+            return root;
+        }
+        Node leftLca = lca2(root.left, n1, n2);
+        Node rightLca = lca2(root.right, n1, n2);
 
-    
+        if (leftLca == null) {
+            return rightLca;
+        }
+        if (rightLca == null) {
+            return leftLca;
+        }
+        return root;
+    }
+
+    // Min Distance Between Nodes
+    public static int lcaDist(Node root, int n) {
+        if (root == null) {
+            return -1;
+        }
+        if (root.data == n) {
+            return 0;
+        }
+        int leftDist = lcaDist(root.left, n);
+        int rightDist = lcaDist(root.right, n);
+        if (leftDist == -1 && rightDist == -1) {
+            return -1;
+        }
+        return Math.max(leftDist, rightDist) + 1;
+    }
+
+    public static int minDiff(Node root, int n1, int n2) {
+        if (root == null) {
+            return -1;
+        }
+        Node lca = lca2(root, n1, n2);
+        int leftDist = lcaDist(lca, n1);
+        int rightDist = lcaDist(lca, n2);
+
+        return leftDist + rightDist;
+    }
+
+    // kth Ancestor of Nodes
+
+    // Transform to Sum Tree
 
     public static void main(String[] args) {
         int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
@@ -283,6 +355,9 @@ public class BinaryTree {
         // Node subroot = BinaryTrees.buildTree(subNodes);
         // System.out.println(isSubtree(root, subroot));
         // topView(root);
-        kthLevel(root, 0, 2);
+        // kthLevel(root, 0, 2);
+        // System.out.println(lca1(root, 4, 5).data);
+        // System.out.println(lca2(root, 4, 5).data);
+        System.out.println(minDiff(root, 4, 6));
     }
 }
