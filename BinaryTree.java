@@ -237,6 +237,19 @@ public class BinaryTree {
         System.out.println();
     }
 
+    // Print Kth Level of Node in Tree
+    public static void kthLevel(Node root, int level, int k) {
+        if (root == null) {
+            return;
+        }
+        if (k == level) {
+            System.out.print(root.data + " ");
+            return;
+        }
+        kthLevel(root.left, level + 1, k);
+        kthLevel(root.right, level + 1, k);
+    }
+
     public static void main(String[] args) {
         int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
         Node root = BinaryTrees.buildTree(nodes);
@@ -257,6 +270,7 @@ public class BinaryTree {
         // int subNodes[] = { 2, 4, -1, -1, 5, -1, -1 };
         // Node subroot = BinaryTrees.buildTree(subNodes);
         // System.out.println(isSubtree(root, subroot));
-        topView(root);
+        // topView(root);
+        kthLevel(root, 0, 2);
     }
 }
