@@ -250,6 +250,18 @@ public class BinaryTree {
         kthLevel(root.right, level + 1, k);
     }
 
+    //Lowest Common Ancestor - Approach 1
+
+    //Lowest Common Ancestor - Approach 2
+
+    //Min Distance Between Nodes
+
+    //kth Ancestor of Nodes
+
+    //Transform to Sum Tree
+
+    
+
     public static void main(String[] args) {
         int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
         Node root = BinaryTrees.buildTree(nodes);
