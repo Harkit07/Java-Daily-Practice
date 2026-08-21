@@ -112,8 +112,30 @@ public class Bst {
     }
 
     // Validate BST
+    public static boolean isValidBST(Node root, Node min, Node max) {
+        if (root == null) {
+            return true;
+        }
+        if (min != null && root.data <= min.data) {
+            return false;
+        }
+        if (max != null && root.data >= max.data) {
+            return false;
+        }
+        return isValidBST(root.left, min, root) && isValidBST(root.right, root, max);
+    }
 
     // Mirror BST
+    public static Node mirrorBST(Node root) {
+        if (root == null) {
+            return null;
+        }
+        Node leftMirror = mirrorBST(root.left);
+        Node rightMirror = mirrorBST(root.right);
+        root.left = leftMirror;
+        root.right = rightMirror;
+        return root;
+    }
 
     public static void main(String[] args) {
         int values[] = { 5, 1, 3, 4, 2, 7 };
