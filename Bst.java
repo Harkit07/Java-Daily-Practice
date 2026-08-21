@@ -132,9 +132,19 @@ public class Bst {
         }
         Node leftMirror = mirrorBST(root.left);
         Node rightMirror = mirrorBST(root.right);
-        root.left = leftMirror;
-        root.right = rightMirror;
+        root.left = rightMirror;
+        root.right = leftMirror;
         return root;
+    }
+
+    // InOrder
+    public static void inorder(Node root) {
+        if (root == null) {
+            return;
+        }
+        inorder(root.left);
+        System.out.print(root.data + " ");
+        inorder(root.right);
     }
 
     public static void main(String[] args) {
@@ -143,5 +153,38 @@ public class Bst {
         for (int i = 0; i < values.length; i++) {
             root = insert(root, values[i]);
         }
+
+        System.out.println("===== 1. Build BST =====");
+        System.out.print("Inorder (should be sorted): ");
+        inorder(root);
+        System.out.println();
+
+        System.out.println("\n===== 2. Search in BST =====");
+        System.out.println("Search 4: " + searchBST(root, 4));
+        System.out.println("Search 6: " + searchBST(root, 6));
+
+        System.out.println("\n===== 3. Validate BST =====");
+        System.out.println("isValidBST: " + isValidBST(root, null, null));
+
+        System.out.println("\n===== 4. Print In Range [2, 5] =====");
+        printInRange(root, 2, 5);
+        System.out.println();
+
+        System.out.println("\n===== 5. Root to Leaf Paths =====");
+        leafPath(root, new ArrayList<>());
+
+        System.out.println("\n===== 6. Delete Node 3 (two children) =====");
+        root = delete(root, 3);
+        inorder(root);
+        System.out.println();
+
+        System.out.println("\n===== 7. Delete Node 7 (leaf) =====");
+        root = delete(root, 7);
+        inorder(root);
+        System.out.println();
+
+        System.out.println("\n===== 8. Mirror BST =====");
+        root = mirrorBST(root); // using the FIXED version (swaps left/right)
+        inorder(root);
     }
 }
