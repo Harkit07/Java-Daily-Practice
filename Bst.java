@@ -188,7 +188,41 @@ public class Bst {
         return root;
     }
 
-    // Size of Largest BST in BT
+    // Size of Largest BST in BTs
+    static class Info {
+        boolean isBST;
+        int size;
+        int min;
+        int max;
+
+        public Info(boolean isBST, int size, int min, int max) {
+            this.isBST = isBST;
+            this.size = size;
+            this.min = min;
+            this.max = max;
+        }
+    }
+
+    static int maxBSt = 0;
+
+    public static Info largestBST(Node root) {
+        if (root == null) {
+            return new Info(true, 0, Integer.MAX_VALUE, Integer.MIN_VALUE);
+        }
+        Info leftInfo = largestBST(root.left);
+        Info rightInfo = largestBST(root.right);
+        int size = leftInfo.size + rightInfo.size + 1;
+        int min = Math.min(root.data, Math.min(leftInfo.min, rightInfo.min));
+        int max = Math.max(root.data, Math.max(leftInfo.max, rightInfo.max));
+        if (root.data <= leftInfo.max || root.data >= rightInfo.min) {
+            return new Info(false, size, min, max);
+        }
+        if (leftInfo.isBST && rightInfo.isBST) {
+            maxBSt = Math.max(maxBSt, size);
+            return new Info(true, size, min, max);
+        }
+        return new Info(false, size, min, max);
+    }
 
     public static void main(String[] args) {
         int values[] = { 5, 1, 3, 4, 2, 7 };
@@ -229,5 +263,41 @@ public class Bst {
         System.out.println("\n===== 8. Mirror BST =====");
         root = mirrorBST(root); // using the FIXED version (swaps left/right)
         inorder(root);
+
+        System.out.println("\n===== Sorted Array to Balanced BST =====");
+        int sortedArr[] = { 1, 2, 3, 4, 5, 6, 7 };
+        Node balancedFromArr = sortedArrToBST(sortedArr, 0, sortedArr.length - 1);
+        System.out.print("Inorder: ");
+        inorder(balancedFromArr);
+        System.out.println();
+
+        System.out.println("\n===== Convert BST to Balanced BST =====");
+        Node skewed = null;
+        int[] skewedInsertOrder = { 1, 2, 3, 4, 5 };
+        for (int v : skewedInsertOrder) {
+            skewed = insert(skewed, v);
+        }
+        System.out.print("Before - Inorder: ");
+        inorder(skewed);
+        System.out.println();
+
+        Node balanced = balanceBST(skewed);
+        System.out.print("After  - Inorder: ");
+        inorder(balanced);
+        System.out.println();
+
+        System.out.println("\n===== Size of Largest BST in Binary Tree =====");
+        Node mixedTree = new Node(50);
+        mixedTree.left = new Node(30);
+        mixedTree.left.left = new Node(5);
+        mixedTree.left.right = new Node(20);
+        mixedTree.right = new Node(60);
+        mixedTree.right.left = new Node(45);
+        mixedTree.right.right = new Node(70);
+        mixedTree.left.right.left = new Node(100); // violates BST for the whole left subtree
+
+        maxBSt = 0; // reset static counter before use
+        largestBST(mixedTree);
+        System.out.println("Size of largest BST subtree: " + maxBSt);
     }
 }
