@@ -148,8 +148,45 @@ public class Bst {
     }
 
     // Sorted Array to balanced BST
+    public static Node sortedArrToBST(int arr[], int st, int end) {
+        if (st > end) {
+            return null;
+        }
+        int mid = st + (end - st) / 2;
+        Node root = new Node(arr[mid]);
+        root.left = sortedArrToBST(arr, st, mid - 1);
+        root.right = sortedArrToBST(arr, mid + 1, end);
+        return root;
+    }
 
     // Convert BST to Balance BST
+    private static void getInOrder(Node root, ArrayList<Integer> list) {
+        if (root == null) {
+            return;
+        }
+        getInOrder(root.left, list);
+        list.add(root.data);
+        getInOrder(root.right, list);
+    }
+
+    private static Node createBST(ArrayList<Integer> list, int st, int end) {
+        if (st > end) {
+            return null;
+        }
+        int mid = st + (end - st) / 2;
+        Node root = new Node(list.get(mid));
+        root.left = createBST(list, st, mid - 1);
+        root.right = createBST(list, mid + 1, end);
+        return root;
+    }
+
+    public static Node balanceBST(Node root) {
+        ArrayList<Integer> list = new ArrayList<>();
+        getInOrder(root, list);
+
+        root = createBST(list, 0, list.size() - 1);
+        return root;
+    }
 
     // Size of Largest BST in BT
 
