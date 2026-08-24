@@ -66,8 +66,20 @@ public class HeapQA {
     }
 
     // Connect N Ropes
-    // static class Rope implements Comparable<Rope> {
-    // int len;
+    public static int connectNRopes(int ropes[]) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        int cost = 0;
+        for (int i = 0; i < ropes.length; i++) {
+            pq.add(ropes[i]);
+        }
+        while (pq.size() > 1) {
+            int min1 = pq.remove();
+            int min2 = pq.remove();
+            cost += (min1 + min2);
+            pq.add(min1 + min2);
+        }
+        return cost;
+    }
 
     // }
 
@@ -92,10 +104,16 @@ public class HeapQA {
         nearbyCars(points, k);
 
         // Connect N Ropes
+        int ropes[] = { 2, 3, 3, 4, 6 };
+        System.out.println(connectNRopes(ropes));
 
         // Weakest Soldiers
+        // int army[][] = { { 1, 0, 0, 0 }, { 1, 1, 1, 1 }, { 1, 0, 0, 0 }, { 1, 0, 0, 0
+        // } };
+        // int n = 2;
 
         // Sliding Window Maximum
-
+        // int num[] = { 1, 3, -1, -3, 5, 3, 6, 7 };
+        // int s = 3;
     }
 }
