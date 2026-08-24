@@ -61,8 +61,9 @@ public class HeapQA {
             pq.add(new Point(points[i][0], points[i][1], distSq, i));
         }
         for (int i = 0; i < k; i++) {
-            System.out.println("C" + pq.remove().idx);
+            System.out.print("C=" + pq.remove().idx + "  ");
         }
+        System.out.println();
     }
 
     // Connect N Ropes
@@ -81,11 +82,40 @@ public class HeapQA {
         return cost;
     }
 
-    // }
-
     // Weakest Soldiers
+    static class Rows implements Comparable<Rows> {
+        int sol;
+        int idx;
 
-    // Weakest Soldiers
+        public Rows(int sol, int idx) {
+            this.sol = sol;
+            this.idx = idx;
+        }
+
+        @Override
+        public int compareTo(Rows r2) {
+            if (this.sol == r2.sol) {
+                return this.idx - r2.idx;
+            } else {
+                return this.sol - r2.sol;
+            }
+        }
+    }
+
+    public static void weakestSoilders(int army[][], int k) {
+        PriorityQueue<Rows> pq = new PriorityQueue<>();
+        for (int i = 0; i < army.length; i++) {
+            int count = 0;
+            for (int j = 0; j < army[0].length; j++) {
+                count += army[i][j] == 1 ? 1 : 0;
+            }
+            pq.add(new Rows(count, i));
+        }
+        for (int i = 0; i < k; i++) {
+            System.out.print("R=" + pq.remove().idx + "  ");
+        }
+        System.out.println();
+    }
 
     // Sliding Window Maximum
 
@@ -108,9 +138,9 @@ public class HeapQA {
         System.out.println(connectNRopes(ropes));
 
         // Weakest Soldiers
-        // int army[][] = { { 1, 0, 0, 0 }, { 1, 1, 1, 1 }, { 1, 0, 0, 0 }, { 1, 0, 0, 0
-        // } };
-        // int n = 2;
+        int army[][] = { { 1, 0, 0, 0 }, { 1, 1, 1, 1 }, { 1, 0, 0, 0 }, { 1, 0, 0, 0 } };
+        int n = 2;
+        weakestSoilders(army, n);
 
         // Sliding Window Maximum
         // int num[] = { 1, 3, -1, -3, 5, 3, 6, 7 };
