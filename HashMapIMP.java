@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import javax.naming.LinkLoopException;
-
 public class HashMapIMP {
     static class HashMap<K, V> {// generic
         private class Node {
@@ -117,8 +115,7 @@ public class HashMapIMP {
 
             for (int i = 0; i < buckets.length; i++) {
                 LinkedList<Node> ll = buckets[i];
-                for (int j = 0; j < ll.size(); j++) {
-                    Node node = ll.remove();
+                for (Node node : ll) {
                     keys.add(node.key);
                 }
             }
@@ -131,6 +128,36 @@ public class HashMapIMP {
     }
 
     public static void main(String[] args) {
+        HashMap<String, Integer> map = new HashMap<>();
 
+        // put
+        map.put("India", 100);
+        map.put("China", 150);
+        map.put("US", 50);
+        map.put("Nepal", 5);
+        map.put("Srilanka", 3);
+        map.put("Pakistan", 20); // triggers rehash once lambda > 2.0
+
+        // get
+        System.out.println("Population of India: " + map.get("India"));
+        System.out.println("Population of Germany: " + map.get("Germany")); // null
+
+        // containsKey
+        System.out.println("Contains China? " + map.containsKey("China"));
+        System.out.println("Contains Japan? " + map.containsKey("Japan"));
+
+        // update existing key
+        map.put("India", 110);
+        System.out.println("Updated population of India: " + map.get("India"));
+
+        // isEmpty
+        System.out.println("Is map empty? " + map.isEmpty());
+
+        // keySet
+        System.out.println("Keys: " + map.keySet());
+
+        // remove
+        System.out.println("Removed Nepal: " + map.remove("Nepal"));
+        System.out.println("Contains Nepal after removal? " + map.containsKey("Nepal"));
     }
 }
