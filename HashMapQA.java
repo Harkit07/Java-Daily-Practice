@@ -44,6 +44,34 @@ public class HashMapQA {
         return hm.isEmpty();
     }
 
+    // Find Itinery from tickets
+    public static String getStart(HashMap<String, String> tickets) {
+        HashMap<String, String> revMap = new HashMap<>();
+        for (String key : tickets.keySet()) {
+            revMap.put(tickets.get(key), key);
+        }
+        for (String key : tickets.keySet()) {
+            if (!revMap.containsKey(key)) {
+                return key;
+            }
+        }
+        return null;
+    }
+
+    public static void printRoute(HashMap<String, String> tickets) {
+        String start = getStart(tickets);
+        System.out.print(start);
+        for (String key : tickets.keySet()) {
+            System.out.print("---->" + tickets.get(start));
+            start = tickets.get(start);
+        }
+        System.out.println();
+    }
+
+    // Largest subarray with 0 Sum
+
+    // Largest subarray with k Sum
+
     public static void main(String[] args) {
         // LinkedHashMap (Order of Insertion)
         // LinkedHashMap<String, Integer> lhm = new LinkedHashMap<>();
@@ -70,13 +98,27 @@ public class HashMapQA {
         // System.out.println();
 
         // Majority Element
-        int nums[] = { 1, 3, 2, 5, 1, 3, 1, 5, 1 };
-        majorityElement(nums);
+        // int nums[] = { 1, 3, 2, 5, 1, 3, 1, 5, 1 };
+        // majorityElement(nums);
 
         // Valid Anagram
-        String s = "knee";
-        String t = "keen";
-        System.out.println(isAnagram(s, t));
+        // String s = "knee";
+        // String t = "keen";
+        // System.out.println(isAnagram(s, t));
 
+        // Find Itinery from tickets
+        HashMap<String, String> tickets = new HashMap<>();
+        tickets.put("chennai", "bangluru");
+        tickets.put("mumbai", "delhi");
+        tickets.put("goa", "chennai");
+        tickets.put("delhi", "goa");
+        printRoute(tickets);
+
+        // Largest subarray with 0 Sum
+        int arr1[] = { 15, -2, 2, -8, 1, 7, 10, 23 };
+
+        // Largest subarray with k Sum
+        int arr2[] = { 10, 2, -2, -20, 10 };
+        int k = -10;
     }
 }
