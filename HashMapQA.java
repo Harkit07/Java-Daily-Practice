@@ -58,15 +58,15 @@ public class HashMapQA {
         return null;
     }
 
-    public static void printRoute(HashMap<String, String> tickets) {
-        String start = getStart(tickets);
-        System.out.print(start);
-        for (String key : tickets.keySet()) {
-            System.out.print("---->" + tickets.get(start));
-            start = tickets.get(start);
-        }
-        System.out.println();
-    }
+    // public static void printRoute(HashMap<String, String> tickets) {
+    // String start = getStart(tickets);
+    // System.out.print(start);
+    // for (String key : tickets.keySet()) {
+    // System.out.print("---->" + tickets.get(start));
+    // start = tickets.get(start);
+    // }
+    // System.out.println();
+    // }
 
     // Largest subarray with 0 Sum
     public static int largestSumwith0(int arr[]) {
