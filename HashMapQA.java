@@ -69,8 +69,37 @@ public class HashMapQA {
     }
 
     // Largest subarray with 0 Sum
+    public static int largestSumwith0(int arr[]) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int sum = 0;
+        int len = 0;
+        for (int j = 0; j < arr.length; j++) {
+            sum += arr[j];
+            if (map.containsKey(sum)) {
+                len = Math.max(len, j - map.get(sum));// (j-i)
+            } else {
+                map.put(sum, j);
+            }
+        }
+        return len;
+    }
 
     // Largest subarray with k Sum
+    public static int maxSubarrayKSum(int arr[], int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1);
+        int sum = 0;
+        int ans = 0;
+        for (int j = 0; j < arr.length; j++) {
+            sum += arr[j];
+            if (map.containsKey(sum - k)) {
+                ans += map.get(sum - k);
+            }
+            map.put(sum, map.getOrDefault(sum, 0) + 1);
+
+        }
+        return ans;
+    }
 
     public static void main(String[] args) {
         // LinkedHashMap (Order of Insertion)
@@ -112,13 +141,15 @@ public class HashMapQA {
         tickets.put("mumbai", "delhi");
         tickets.put("goa", "chennai");
         tickets.put("delhi", "goa");
-        printRoute(tickets);
+        // printRoute(tickets);
 
         // Largest subarray with 0 Sum
         int arr1[] = { 15, -2, 2, -8, 1, 7, 10, 23 };
+        System.out.println(largestSumwith0(arr1));
 
         // Largest subarray with k Sum
         int arr2[] = { 10, 2, -2, -20, 10 };
         int k = -10;
+        System.out.println(maxSubarrayKSum(arr2, k));
     }
 }
