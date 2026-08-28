@@ -76,18 +76,60 @@ public class TrieQA {
             System.out.println(ans);
             return;
         }
-        for (int i = 0; i < root.children.length; i++) {
-            if (root.children[i] != null) {
-                prefixProblem(root.children[i], ans + (char) (i + 'a'));
+        Node curr = root;
+        for (int i = 0; i < curr.children.length; i++) {
+            if (curr.children[i] != null) {
+                prefixProblem(curr.children[i], ans + (char) (i + 'a'));
             }
         }
     }
 
     // Starts With Problem
+    public static boolean startsWith(String str) {
+        Node curr = root;
+        for (int i = 0; i < str.length(); i++) {
+            int idx = str.charAt(i) - 'a';
+            if (curr.children[idx] == null) {
+                return false;
+            }
+            curr = curr.children[idx];
+        }
+        return true;
+    }
 
     // Count Unique String
+    public static int count(Node root) {
+        if (root == null) {
+            return 0;
+        }
+        int count = 0;
+        for (int i = 0; i < 26; i++) {
+            if (root.children[i] != null) {
+                count += count(root.children[i]);
+            }
+        }
+        return count + 1;
+    }
 
     // Longest Word With All Prefix
+    public static String ans = "";
+
+    public static void longestWord(Node root, StringBuilder temp) {
+        if (root == null) {
+            return;
+        }
+        for (int i = 0; i < root.children.length; i++) {
+            if (root.children[i] != null && root.children[i].eow == true) {
+                char ch = (char) (i + 'a');
+                temp.append(ch);
+                longestWord(root.children[i], temp);
+                if (temp.length() > ans.length()) {
+                    ans = temp.toString();
+                }
+                temp.deleteCharAt(temp.length() - 1);
+            }
+        }
+    }
 
     public static void main(String[] args) {
         // Insert in Trie
@@ -111,24 +153,39 @@ public class TrieQA {
         // System.out.println(wordBreak(key));
 
         // Prefix Problem
-        String arr[] = { "zebra", "dog", "duck", "dove" };
-        // ans[]={"z", "dog", "du", "du"};
-        root.freq = -1;
-        for (int i = 0; i < arr.length; i++) {
-            insertUtil(arr[i]);
-        }
-        prefixProblem(root, "");
+        // String arr[] = { "zebra", "dog", "duck", "dove" };
+        // // ans[]={"z", "dog", "du", "du"};
+        // root.freq = -1;
+        // for (int i = 0; i < arr.length; i++) {
+        // insertUtil(arr[i]);
+        // }
+        // prefixProblem(root, "");
 
         // Starts With Problem
-        String wordArr3[] = { "apple", "app", "mango", "man", "woman" };
-        String prefix1 = "app";// true
-        String prefix2 = "moon";// false
+        // String wordArr3[] = { "apple", "app", "mango", "man", "woman" };
+        // String prefix1 = "app";// true
+        // String prefix2 = "moon";// false
+        // for (int i = 0; i < wordArr3.length; i++) {
+        // insert(wordArr3[i]);
+        // }
+        // System.out.println(startsWith(prefix1));
+        // System.out.println(startsWith(prefix2));
 
         // Count Unique String
-        String str = "ababa";// ans=10
+        // String str = "ababa";// ans=10
+        // for (int i = 0; i < str.length(); i++) {
+        // String suffix = str.substring(i);
+        // insert(suffix);
+        // }
+        // System.out.println(count(root));
 
         // Longest Word With All Prefix
         String wordArr4[] = { "a", "banana", "app", "appl", "ap", "apply", "apple" };// ans="apple";
+        for (int i = 0; i < wordArr4.length; i++) {
+            insert(wordArr4[i]);
+        }
+        longestWord(root, new StringBuilder(""));
+        System.out.println(ans);
     }
 
 }
