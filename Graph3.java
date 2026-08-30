@@ -13,7 +13,40 @@ public class Graph3 {
         }
     }
 
-    public static void createGraph(ArrayList<Edge> graph[]) {
+    public static void checkTopSort(ArrayList<Edge> graph[]) { // Directed Graph
+        for (int i = 0; i < graph.length; i++) {
+            graph[i] = new ArrayList<>();
+        }
+        graph[2].add(new Edge(2, 3, 1));
+
+        graph[3].add(new Edge(3, 1, 1));
+
+        graph[4].add(new Edge(4, 0, 1));
+        graph[4].add(new Edge(4, 1, 1));
+
+        graph[5].add(new Edge(5, 0, 1));
+        graph[5].add(new Edge(5, 2, 1));
+    }
+
+    public static void checkAllPath(ArrayList<Edge> graph[]) {
+        for (int i = 0; i < graph.length; i++) {
+            graph[i] = new ArrayList<>();
+        }
+
+        graph[0].add(new Edge(0, 1, 1));
+
+        graph[2].add(new Edge(2, 3, 1));
+
+        graph[3].add(new Edge(3, 1, 1));
+
+        graph[4].add(new Edge(4, 0, 1));
+        graph[4].add(new Edge(4, 1, 1));
+
+        graph[5].add(new Edge(5, 0, 1));
+        graph[5].add(new Edge(5, 2, 1));
+    }
+
+    public static void checckDijkstra(ArrayList<Edge> graph[]) {
         for (int i = 0; i < graph.length; i++) {
             graph[i] = new ArrayList<>();
         }
@@ -41,11 +74,17 @@ public class Graph3 {
         graph[6].add(new Edge(6, 5, 1));
     }
 
+    // Topological Sort - (BFS)
+
+    // Print all Path - Directed Graph
+
+    // Dijkstra's Algorithm
+
     @SuppressWarnings("unchecked")
     public static void main(String[] args) {
         int V = 7;
         ArrayList<Edge> graph[] = new ArrayList[V];
-        createGraph(graph);
+        checkTopSort(graph);
 
     }
 }
