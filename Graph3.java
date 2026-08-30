@@ -103,7 +103,14 @@ public class Graph3 {
 
     // Print all Path - Directed Graph
     public static void printPath(ArrayList<Edge> graph[], int src, int dest, String path) {
-
+        if (src == dest) {
+            System.out.println(path + dest);
+            return;
+        }
+        for (int i = 0; i < graph[src].size(); i++) {
+            Edge e = graph[src].get(i);
+            printPath(graph, e.dest, dest, path + src);
+        }
     }
 
     // Dijkstra's Algorithm
@@ -114,6 +121,9 @@ public class Graph3 {
         ArrayList<Edge> graph[] = new ArrayList[V];
         checkTopSort(graph);
         topSortBFS(graph);
+
+        checkAllPath(graph);
+        printPath(graph, 5, 1, "");
 
     }
 }
