@@ -44,6 +44,19 @@ public class Graph2 {
         graph[6].add(new Edge(6, 5, 1));
     }
 
+    public static void createDAG(ArrayList<Edge> graph[]) {
+        for (int i = 0; i < graph.length; i++) {
+            graph[i] = new ArrayList<>();
+        }
+        graph[5].add(new Edge(5, 2, 1));
+        graph[5].add(new Edge(5, 0, 1));
+        graph[4].add(new Edge(4, 0, 1));
+        graph[4].add(new Edge(4, 1, 1));
+        graph[2].add(new Edge(2, 3, 1));
+        graph[3].add(new Edge(3, 1, 1));
+        // vertices 0 and 1 have no outgoing edges
+    }
+
     // Connected Components
     public static void dfs(ArrayList<Edge> graph[]) {
         boolean vis[] = new boolean[graph.length];
@@ -186,6 +199,30 @@ public class Graph2 {
         int V = 7;
         ArrayList<Edge> graph[] = new ArrayList[V];
         createGraph(graph);
+
+        // Connected Components (DFS traversal)
+        System.out.println("DFS Traversal (Connected Components):");
         dfs(graph);
+        System.out.println();
+
+        // Cycle Detection - Undirected Graph
+        System.out.println("\nCycle Detection (Undirected): " + isCycleUndirected(graph));
+
+        // Bipartite Check
+        System.out.println("Is Bipartite: " + isBipartite(graph));
+
+        // Cycle Detection - Directed Graph
+        // NOTE: graph[] here is built as an undirected graph (bidirectional edges),
+        // so every edge will look like a back-edge to isCycledirected().
+        // This check is only meaningful on a genuinely directed graph (e.g. one
+        // built with single-direction edges, like a DAG for topological sort below).
+        System.out.println("Cycle Detection (Directed): " + isCycledirected(graph));
+
+        // Topological Sort
+        // NOTE: Also only meaningful on a DAG. Running it on this undirected/cyclic
+        // graph will still execute without error, but the output won't represent
+        // a valid topological order since none exists here.
+        System.out.println("\nTopological Sort:");
+        topSort(graph);
     }
 }
