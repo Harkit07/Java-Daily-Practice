@@ -41,10 +41,41 @@ public class Graph2 {
         graph[6].add(new Edge(6, 5, 1));
     }
 
+    // Connected Components
+    public static void dfs(ArrayList<Edge> graph[]) {
+        boolean vis[] = new boolean[graph.length];
+        for (int i = 0; i < graph.length; i++) {
+            if (!vis[i]) {
+                dfsUtil(graph, i, vis);
+            }
+        }
+    }
+
+    public static void dfsUtil(ArrayList<Edge> graph[], int curr, boolean vis[]) {
+        System.out.print(curr + " ");
+        vis[curr] = true;
+        for (int i = 0; i < graph[curr].size(); i++) {
+            Edge e = graph[curr].get(i);
+            if (!vis[e.dest]) {
+                dfsUtil(graph, e.dest, vis);
+            }
+        }
+
+    }
+
+    // Cycle Detection - Undirected Graph(Modified DFS)
+
+    // Bipartite Graph
+
+    // Cycle Detection - Directed Graph(Modified DFS)
+
+    // Topological Sort
+
     @SuppressWarnings("unchecked")
     public static void main(String[] args) {
         int V = 7;
         ArrayList<Edge> graph[] = new ArrayList[V];
         createGraph(graph);
+        dfs(graph);
     }
 }
