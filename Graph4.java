@@ -26,7 +26,7 @@ public class Graph4 {
 
         graph[3].add(new Edge(3, 4, 4));
 
-        graph[4].add(new Edge(4, 1, 1));
+        graph[4].add(new Edge(4, 1, -1));
     }
 
     public static void primAlgorithm(ArrayList<Edge> graph[]) {
@@ -81,7 +81,7 @@ public class Graph4 {
 
     @SuppressWarnings("unchecked")
     public static void main(String[] args) {
-        int V = 7;
+        int V = 5;
         ArrayList<Edge> graph[] = new ArrayList[V];
         // Bellman Ford Algorithm
         checkBellmanFord(graph);
