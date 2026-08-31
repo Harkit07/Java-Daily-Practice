@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 
-public class data {
-
+public class Graph4 {
     static class Edge {
         int src;
         int dest;
