@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 public class Graph4 {
     static class Edge {
@@ -29,7 +30,7 @@ public class Graph4 {
         graph[4].add(new Edge(4, 1, -1));
     }
 
-    public static void primAlgorithm(ArrayList<Edge> graph[]) {
+    public static void checkPrimAlgorithm(ArrayList<Edge> graph[]) {
         for (int i = 0; i < graph.length; i++) {
             graph[i] = new ArrayList<>();
         }
@@ -78,6 +79,43 @@ public class Graph4 {
     }
 
     // Maximum Spanning Tree - Using Prim's Algorithm
+    static class Pair implements Comparable<Pair> {
+        int v;
+        int cost;
+
+        public Pair(int v, int cost) {
+            this.v = v;
+            this.cost = cost;
+        }
+
+        @Override
+        public int compareTo(Pair p2) {
+            return this.cost - p2.cost;
+        }
+
+    }
+
+    public static int primAlgorithm(ArrayList<Edge> graph[]) {
+        boolean vis[] = new boolean[graph.length];
+        PriorityQueue<Pair> pq = new PriorityQueue<>();
+        pq.add(new Pair(0, 0));
+        int finalCost = 0;
+
+        while (!pq.isEmpty()) {
+            Pair curr = pq.remove();
+            if (!vis[curr.v]) {
+                vis[curr.v] = true;
+                finalCost += curr.cost;
+
+                for (int i = 0; i < graph[curr.v].size(); i++) {
+                    Edge e = graph[curr.v].get(i);
+                    pq.add(new Pair(e.dest, e.wt));
+                }
+            }
+        }
+        return finalCost;
+
+    }
 
     @SuppressWarnings("unchecked")
     public static void main(String[] args) {
@@ -88,6 +126,8 @@ public class Graph4 {
         bellmanFordAlgorithm(graph, 0);
 
         // Maximum Spanning Tree - Using Prim's Algorithm
+        // checkPrimAlgorithm(graph);
+        // System.out.println(primAlgorithm(graph));
 
     }
 }
