@@ -62,7 +62,6 @@ public class Graph4 {
             for (int j = 0; j < graph.length; j++) {
                 for (int j2 = 0; j2 < graph[j].size(); j2++) {
                     Edge e = graph[j].get(j2);
-                    graph[4].add(new Edge(4, 1, 1));
                     int u = e.src;
                     int v = e.dest;
                     int wt = e.wt;
