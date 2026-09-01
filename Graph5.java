@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -154,8 +156,70 @@ public class Graph5 {
     }
 
     // Minimum Spanning Tree - Kruskal's Algorithm(Greedy Based)
+    static class Edge2 implements Comparable<Edge2> {
+        int src;
+        int dest;
+        int wt;
+
+        public Edge2(int s, int d, int wt) {
+            this.src = s;
+            this.dest = d;
+            this.wt = wt;
+        }
+
+        @Override
+        public int compareTo(Edge2 e2) {
+            return this.wt - e2.wt;
+        }
+    }
+
+    public static void createMST(ArrayList<Edge2> edges) {
+        edges.add(new Edge2(0, 1, 10));
+        edges.add(new Edge2(0, 2, 15));
+        edges.add(new Edge2(0, 3, 30));
+        edges.add(new Edge2(1, 3, 40));
+        edges.add(new Edge2(2, 3, 50));
+    }
+
+    public static int kruskalAlgorithm(ArrayList<Edge2> edges, int V) {
+        Collections.sort(edges);
+        int mstCost = 0;
+        int count = 0;
+
+        for (int i = 0; count < V - 1; i++) {
+            Edge2 e = edges.get(i);
+            int parA = find(e.src);
+            int parB = find(e.dest);
+            if (parA != parB) {
+                union(e.src, e.dest);
+                mstCost += e.wt;
+                count++;
+            }
+        }
+        return mstCost;
+    }
 
     // Flood Fill Algorithm
+    public static void helper(int images[][], int sr, int sc, int color, boolean vis[][], int origCol) {
+        if (sr < 0 || sc < 0 || sr >= images.length || sc >= images[0].length || vis[sr][sc]
+                || images[sr][sc] != origCol) {
+            return;
+        }
+        vis[sr][sc] = true;
+        images[sr][sc] = color;
+        helper(images, sr, sc - 1, color, vis, origCol);
+        helper(images, sr, sc + 1, color, vis, origCol);
+        helper(images, sr - 1, sc, color, vis, origCol);
+        helper(images, sr + 1, sc, color, vis, origCol);
+    }
+
+    public static void floodFillAlgorithm(int images[][], int sr, int sc, int color) {
+        boolean vis[][] = new boolean[images.length][images[0].length];
+        helper(images, sr, sc, color, vis, images[sr][sc]);
+        for (int[] row : images) {
+            System.out.println(Arrays.toString(row));
+        }
+    }
 
     public static void main(String[] args) {
         // Cheapest Flight with K stop
@@ -180,10 +244,14 @@ public class Graph5 {
         union(1, 5);
 
         // Minimum Spanning Tree - Kruskal's Algorithm(Greedy Based)
+        init();
+        ArrayList<Edge2> edges = new ArrayList<>();
+        createMST(edges);
+        System.out.println(kruskalAlgorithm(edges, 4));
 
         // Flood Fill Algorithm
         int image[][] = { { 1, 1, 1 }, { 1, 1, 0 }, { 1, 0, 1 } };
         int sr = 1, sc = 1, color = 2;
-
+        floodFillAlgorithm(image, sr, sc, color);
     }
 }
