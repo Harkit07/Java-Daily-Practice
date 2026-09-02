@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class GraphSupplement {
     static class Edge {
@@ -26,6 +27,61 @@ public class GraphSupplement {
         graph[3].add(new Edge(3, 4));
     }
 
+    public static void topSort(ArrayList<Edge> graph[], int curr, boolean vis[], Stack<Integer> s) {
+        vis[curr] = true;
+        for (int i = 0; i < graph[curr].size(); i++) {
+            Edge e = graph[curr].get(i);
+            if (!vis[e.dest]) {
+                topSort(graph, e.dest, vis, s);
+            }
+        }
+        s.push(curr);
+    }
+
+    public static void dfsSCC(ArrayList<Edge> graph[], int curr, boolean vis[]) {
+        vis[curr] = true;
+        System.out.print(curr + " ");
+        for (int i = 0; i < graph[curr].size(); i++) {
+            Edge e = graph[curr].get(i);
+            if (!vis[e.dest]) {
+                dfsSCC(graph, e.dest, vis);
+            }
+        }
+    }
+
+    public static void kosarajuAlgorithm(ArrayList<Edge> graph[], int V) {
+        Stack<Integer> s = new Stack<>();
+        boolean vis[] = new boolean[V];
+        for (int i = 0; i < V; i++) {
+            if (!vis[i]) {
+                topSort(graph, i, vis, s);
+            }
+        }
+
+        ArrayList<Edge> transpose[] = new ArrayList[V];
+        for (int i = 0; i < transpose.length; i++) {
+            vis[i] = false;
+            transpose[i] = new ArrayList<>();
+        }
+
+        for (int i = 0; i < V; i++) {
+            for (int j = 0; j < graph[i].size(); j++) {
+                Edge e = graph[i].get(j);
+                transpose[e.dest].add(new Edge(e.dest, e.src));
+            }
+        }
+
+        while (!s.isEmpty()) {
+            int curr = s.pop();
+            if (!vis[curr]) {
+                System.out.print("SSC : ");
+                dfsSCC(transpose, curr, vis);
+                System.out.println();
+            }
+        }
+
+    }
+
     // Bridge in Graph - Tarjan's Algorithm (Undirected Graph)
     public static void cheackBridge(ArrayList<Edge> graph[]) {
         for (int i = 0; i < graph.length; i++) {
@@ -45,6 +101,41 @@ public class GraphSupplement {
         graph[3].add(new Edge(3, 4));
 
         graph[4].add(new Edge(4, 3));
+    }
+
+    public static void dfsBridge(ArrayList<Edge> graph[], int curr, int par, boolean vis[], int dt[], int low[],
+            int time) {
+        vis[curr] = true;
+        dt[curr] = low[curr] = ++time;
+
+        for (int i = 0; i < graph[curr].size(); i++) {
+            Edge e = graph[curr].get(i);
+            int neigh = e.dest;
+            if (neigh == par) {
+                continue;
+            } else if (!vis[neigh]) {
+                dfsBridge(graph, neigh, curr, vis, dt, low, time);
+                low[curr] = Math.min(low[curr], low[neigh]);
+                if (dt[curr] < low[neigh]) {
+                    System.out.println("Bridge : " + curr + " ----- " + neigh);
+                }
+            } else {
+                low[curr] = Math.min(low[curr], dt[neigh]);
+            }
+        }
+    }
+
+    public static void tarjanBridge(ArrayList<Edge> graph[], int V) {
+        int dt[] = new int[V];
+        int low[] = new int[V];
+        int time = 0;
+        boolean vis[] = new boolean[V];
+
+        for (int i = 0; i < V; i++) {
+            if (!vis[i]) {
+                dfsBridge(graph, i, -1, vis, dt, low, time);
+            }
+        }
     }
 
     // Articulation Point - Tarjan's Algorithm (Undirected Graph)
@@ -75,9 +166,11 @@ public class GraphSupplement {
 
         // Strongly Connected Components - Kosaraju's Algorithm (Directed Graph)
         cheackSCC(graph);
+        kosarajuAlgorithm(graph, V);
 
         // Bridge in Graph - Tarjan's Algorithm (Undirected Graph)
         cheackBridge(graph);
+        tarjanBridge(graph, V);
 
         // Articulation Point - Tarjan's Algorithm (Undirected Graph)
         cheackAP(graph);
