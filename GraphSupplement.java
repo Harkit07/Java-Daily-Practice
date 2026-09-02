@@ -159,6 +159,53 @@ public class GraphSupplement {
         graph[4].add(new Edge(4, 3));
     }
 
+    public static void dfsAP(ArrayList<Edge> graph[], int curr, int par, boolean vis[], int dt[], int low[],
+            boolean ap[], int time) {
+        vis[curr] = true;
+        dt[curr] = low[curr] = ++time;
+        int children = 0;
+
+        for (int i = 0; i < graph[curr].size(); i++) {
+            Edge e = graph[curr].get(i);
+            int neigh = e.dest;
+            if (neigh == par) {
+                continue;
+            } else if (vis[neigh]) {
+                low[curr] = Math.min(low[curr], dt[neigh]);
+            } else {
+                dfsAP(graph, neigh, curr, vis, dt, low, ap, time);
+                low[curr] = Math.min(low[curr], low[neigh]);
+                if (par != -1 && dt[curr] <= low[neigh]) {
+                    ap[curr] = true;
+                }
+                children++;
+            }
+            if (par == -1 && children > 1) {
+                ap[curr] = true;
+            }
+        }
+    }
+
+    public static void tarjanAP(ArrayList<Edge> graph[], int V) {
+        int dt[] = new int[V];
+        int low[] = new int[V];
+        int time = 0;
+        boolean vis[] = new boolean[V];
+        boolean ap[] = new boolean[V];
+
+        for (int i = 0; i < V; i++) {
+            if (!vis[i]) {
+                dfsAP(graph, i, -1, vis, dt, low, ap, time);
+            }
+        }
+
+        for (int i = 0; i < V; i++) {
+            if (ap[i]) {
+                System.out.println("AP : " + i);
+            }
+        }
+    }
+
     @SuppressWarnings("unchecked")
     public static void main(String[] args) {
         int V = 5;
@@ -174,6 +221,7 @@ public class GraphSupplement {
 
         // Articulation Point - Tarjan's Algorithm (Undirected Graph)
         cheackAP(graph);
+        tarjanAP(graph, V);
 
     }
 }
