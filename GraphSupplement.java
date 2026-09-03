@@ -49,6 +49,7 @@ public class GraphSupplement {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static void kosarajuAlgorithm(ArrayList<Edge> graph[], int V) {
         Stack<Integer> s = new Stack<>();
         boolean vis[] = new boolean[V];
