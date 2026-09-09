@@ -59,6 +59,60 @@ public class BuildST {
         updateUtil(0, 0, n - 1, idx, diff);
     }
 
+    // Max/Min Element Queries - Build
+    public static void buildMaxTree(int arr[], int i, int start, int end) {
+        if (start == end) {
+            tree[i] = arr[start];
+            return;
+        }
+        int mid = start + (end - start) / 2;
+        buildMaxTree(arr, 2 * i + 1, start, mid);
+        buildMaxTree(arr, 2 * i + 2, mid + 1, end);
+        tree[i] = Math.max(tree[2 * i + 1], tree[2 * i + 2]);
+    }
+
+    // Max/Min Element Queries - Get
+    public static int getMaxUtil(int arr[], int i, int si, int sj, int qi, int qj) {
+        if (qi > sj || qj < si) {
+            return Integer.MIN_VALUE;
+        } else if (si >= qi && sj <= qj) {
+            return tree[i];
+        } else {
+            int mid = si + (sj - si) / 2;
+            int left = getMaxUtil(arr, 2 * i + 1, si, mid, qi, qj);
+            int right = getMaxUtil(arr, 2 * i + 2, mid + 1, sj, qi, qj);
+            return Math.max(left, right);
+        }
+    }
+
+    public static int getMax(int arr[], int qi, int qj) {
+        int n = arr.length;
+
+        return getMaxUtil(arr, 0, 0, n - 1, qi, qj);
+    }
+
+    // Max/Min Element Queries - Update
+    public static void updateMaxUtil(int i, int si, int sj, int idx, int newVal) {
+        if (idx < si || idx > sj) {
+            return;
+        }
+        if (si == sj) {
+            tree[i] = newVal;
+            return;
+        }
+        int mid = si + (sj - si) / 2;
+        updateMaxUtil(2 * i + 1, si, mid, idx, newVal);
+        updateMaxUtil(2 * i + 2, mid + 1, sj, idx, newVal);
+        tree[i] = Math.max(tree[2 * i + 1], tree[2 * i + 2]);
+    }
+
+    public static void updateMax(int arr[], int idx, int newVal) {
+        int n = arr.length;
+        arr[idx] = newVal;
+
+        updateMaxUtil(0, 0, n - 1, idx, newVal);
+    }
+
     public static void main(String[] args) {
         int arr[] = { 1, 2, 3, 4, 5, 6, 7, 8 };
 
@@ -80,6 +134,23 @@ public class BuildST {
         System.out.println(getSum(arr, 2, 5));
         update(arr, 2, 2);
         System.out.println(getSum(arr, 2, 5));
+
+        // Max/Min Element Queries - Build
+        int arr2[] = { 6, 8, -1, 2, 17, 1, 3, 2, 4 };
+        int n1 = arr2.length;
+        init(n1);
+        buildMaxTree(arr2, 0, 0, n1 - 1);
+
+        for (int i = 0; i < tree.length; i++) {
+            System.out.print(tree[i] + "  ");
+        }
+
+        // Max/Min Element Queries - Get
+        System.out.println(getMax(arr2, 2, 5));
+
+        // Max/Min Element Queries - Update
+        updateMax(arr2, 2, 5);
+        System.out.println(getMax(arr2, 2, 5));
 
     }
 }
