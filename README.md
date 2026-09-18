@@ -1,26 +1,27 @@
-# Java Daily Practice 🧑‍💻
+# Java DSA Practice
 
-A collection of Java programs written as part of my daily Data Structures & Algorithms (DSA) practice. This repo is a personal log of problems solved, concepts revisited, and code experiments — updated regularly.
+A collection of Java programs for practicing Data Structures and Algorithms. Each source file focuses on a data structure, algorithm, or problem-solving pattern.
 
 ## 📌 About
 
-This repository contains Java solutions covering core DSA topics, written for practice and learning. Each file focuses on a specific topic or data structure, with implementations and problem-solving exercises.
+The repository is organized as standalone Java classes, so individual topics can be compiled and run independently. The code is written for learning and is expanded as new concepts are practiced.
 
 ## 📂 Topics Covered
 
-| Category            | Files                                                                                  |
-| ------------------- | -------------------------------------------------------------------------------------- |
-| Arrays              | `Array.java`                                                                           |
-| ArrayList           | `ArrayListJava.java`                                                                   |
-| Linked List         | `LinkedList.java`, `DoubleLinkedList.java`                                             |
-| Stack & Queue       | `DequeB.java`                                                                          |
-| HashMap             | `HashMapCode.java`                                                                     |
-| Trees               | `BST.java`                                                                             |
-| Heap                | `HeapDSA.java`                                                                         |
-| Graphs              | `GraphDSA.java`, `GraphAlgorithm.java`, `GraphAlgorithm2.java`, `GraphSupplement.java` |
-| Dynamic Programming | `DP.java`                                                                              |
-| Greedy Algorithms   | `GreedyAlgorithm.java`                                                                 |
-| Backtracking        | `Backtracking.java`                                                                    |
+| Category | Files |
+| --- | --- |
+| Arrays and strings | `Array.java`, `Array2d.java`, `StrQuestion.java` |
+| ArrayList and hashing | `Arraylist.java`, `HashMapIMP.java`, `HashMapQA.java`, `HashSetQA.java` |
+| Linked lists | `LinkedList.java`, `DoublyLL.java`, `LLQuestions.java` |
+| Stacks and queues | `StackAL.java`, `StackLL.java`, `StackQA.java`, `QueueAL.java`, `QueueArr.java`, `QueueQA.java`, `CircularQueueArr.java`, `SandQDeque.java` |
+| Recursion and backtracking | `Recursion.java`, `Recursion1.java`, `Recursion2.java`, `BackTracking.java` |
+| Sorting and divide and conquer | `Sort.java`, `SortAlgorithm.java`, `SortingAlgorithm.java`, `DivideConquer.java` |
+| Trees and tries | `BinaryTree.java`, `Bst.java`, `BuildST.java`, `TrieQA.java` |
+| Heaps | `HeapIMP.java`, `HeapQA.java` |
+| Graphs | `Graph1.java`, `Graph2.java`, `Graph3.java`, `Graph4.java`, `Graph5.java`, `GraphSupplement.java` |
+| Dynamic programming | `DP1.java`, `DP2.java`, `DP3.java`, `DP4.java`, `DP5.java`, `DP6.java` |
+| Greedy algorithms | `GreedyAlgorithms.java` |
+| Bit manipulation and patterns | `BItManupulation.java`, `BinaryNumbers.java`, `Pattern.java` |
 
 _(List updated as new topics are added.)_
 
@@ -29,31 +30,38 @@ _(List updated as new topics are added.)_
 - **Language:** Java
 - **Tools:** VS Code / Git / GitHub
 
-## 🚀 How to Run
+## How to Run
 
-1. Clone the repository
+1. Clone the repository:
    ```bash
    git clone https://github.com/Harkit07/Java-Daily-Practice.git
    cd Java-Daily-Practice
    ```
-2. Compile a file
+2. Compile a file:
    ```bash
    javac FileName.java
    ```
-3. Run it
+3. Run the class without the `.java` extension:
    ```bash
    java FileName
    ```
 
-## 📈 Goal
+For example:
 
-The aim is consistency — solving at least one problem or revisiting one concept every day to strengthen problem-solving skills and Java fundamentals.
+```bash
+javac Array.java
+java Array
+```
+
+## Goal
+
+The goal is to build consistency by solving problems, revisiting concepts, and strengthening Java fundamentals.
 
 ## 📝 Notes
 
-- `.class` files are excluded from version control (see `.gitignore`) — only source code is tracked.
-- Code is written for learning purposes and may be refactored/improved over time.
+- Compiled `.class` files are generated locally and should not be committed; see `.gitignore`.
+- Code is written for learning purposes and may be refactored or improved over time.
 
 ---
 
-⭐ Feel free to explore, and suggestions are always welcome!
+Feel free to explore and suggest improvements.
