@@ -67,7 +67,7 @@ public class Recursion {
         return firstOccurance(arr, key, i + 1);
     }
 
-    // WAF to find the last occurance of an element in an array
+    // WAF to find the last occurance of an element in an array - (Recursion)
     public static int lastOccurance(int arr[], int key, int i) {
         if (i == arr.length) {
             return -1;
